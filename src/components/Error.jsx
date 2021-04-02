@@ -4,7 +4,7 @@ function Error(props) {
 
     
         return (
-            props.value && <p className="error">Your task cannot be empty</p>
+            props.value && <p className="error m-1 p-2">Your task cannot be empty</p>
         )
     
 

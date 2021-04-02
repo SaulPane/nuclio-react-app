@@ -2,7 +2,7 @@ import React from 'react'
 
 function ItemsList({children}) {
     return (
-        <ul>{children}</ul>
+        <ul className="p-6 m-4 text-left">{children}</ul>
     )
 };
 

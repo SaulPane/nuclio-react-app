@@ -8,21 +8,16 @@ import ItemsList from './components/ItemsList'
 import Error from './components/Error'
 
 import './global.css'
+import useLocalStorage from './hooks/useLocalStorageArray'
+import useLocalStorageString from './hooks/useLocalStorageString'
 
 
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useLocalStorage("tasks", []);
   const [error, setError] = useState(false);
-  if(!localStorage.getItem("inputText")) { 
-    localStorage.setItem("inputText", "")
-  };
+  const [textInput, setTextInput] = useLocalStorageString("inputText", "");
   
-  const [tasksStorage,setTasksStorage] = useState(() => {
-    if(localStorage.getItem("tasks")) {
-    return JSON.parse(localStorage.getItem("tasks"))
-    } else { return [] }
-  });
 
    
   function addTask(task) {
@@ -31,38 +26,34 @@ function App() {
     } else {
       const newTask = [...tasks,task];
       setTasks(newTask);
-      setTasksStorage(newTask);
-      localStorage.setItem("inputText", "");
-      localStorage.setItem("tasks", JSON.stringify(newTask));
+      setTextInput("");
     }
   }
   
   function deleteTask(idItem) {
-    const newTask = tasksStorage.filter(task => task.id !== idItem);
+    const newTask = tasks.filter(task => task.id !== idItem);
     setTasks(newTask);
-    setTasksStorage(newTask);
-    localStorage.setItem("tasks", JSON.stringify(newTask));
+    setError(false);
   }
 
-
-
-  function changeInput() {
+  function changeInput(inputValue) {
+    setTextInput(inputValue);
     if(error) {
       setError(false);
     }
   }
   
   return (
-    <div>
+    <div className="w-96 text-center mx-auto bg-white bg-opacity-70 p-4 m-4 rounded-md">
       <Title />
-      <PendingTasks tasks={tasksStorage} />
+      <PendingTasks tasks={tasks} />
       <FormTasks onSubmit={addTask}>
-        <InputTask placeholder="Task Title" onChange={changeInput} />
+        <InputTask placeholder="Task Title" value={textInput} onChange={changeInput} />
         <AddTaskButton />
       </FormTasks>
       <Error  value={error}/>
       <ItemsList>
-        {tasksStorage.map(task => <li onClick={() => deleteTask(task.id)} key={task.id}>{task.task}</li>)}
+        {tasks.map(task => <li className="border-b border-dotted border-red-400 mt-1" onClick={() => deleteTask(task.id)} key={task.id}>{task.task}</li>)}
       </ItemsList>
     </div>
   )

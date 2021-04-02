@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
+import useLocalStorageString from '../hooks/useLocalStorageString';
 
 function InputTask({placeholder,onChange,value}) {
-    const [textInput,setTextInput] = useState("");
+    
 
     function changeInput(event) {
         const inputValue = event.target.value;
-        localStorage.setItem("inputText",inputValue);
-        setTextInput(localStorage.getItem("inputText"));
-        
-        onChange()
+        onChange(inputValue)
     }
 
     return (
-        <input name="task" placeholder={placeholder} type="text" value={localStorage.getItem("inputText")} onChange={changeInput}/>
+        <input className="m-1 p-2 bg-gray-100 border border-solid border-gray-800 rounded-md" name="task" placeholder={placeholder} type="text" value={value} onChange={changeInput}/>
     )
 };
 

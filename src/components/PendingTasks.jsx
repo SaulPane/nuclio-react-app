@@ -2,7 +2,7 @@ import React from 'react'
 
 function PendingTasks({tasks}) {
     return (
-        <p>Pending tasks: {tasks.length}</p>
+        <p className="p-2 m-1">Pending tasks: {tasks.length}</p>
     )
 };
 
