@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import useLocalStorageString from '../hooks/useLocalStorageString';
 
-function InputTask({placeholder,onChange,value}) {
+function InputTask({placeholder,onChange,value,autoFocus}, ref) {
     
 
     function changeInput(event) {
@@ -10,8 +10,8 @@ function InputTask({placeholder,onChange,value}) {
     }
 
     return (
-        <input className="m-1 p-2 bg-gray-100 border border-solid border-gray-800 rounded-md" name="task" placeholder={placeholder} type="text" value={value} onChange={changeInput}/>
+        <input ref={ref} className="m-1 p-2 bg-gray-100 border border-solid border-gray-800 rounded-md focus:outline-none" id="task" name="task" placeholder={placeholder} type="text" value={value} onChange={changeInput}/>
     )
 };
 
-export default InputTask;
+export default forwardRef(InputTask);

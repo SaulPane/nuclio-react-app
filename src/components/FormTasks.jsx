@@ -8,7 +8,9 @@ function FormTasks({children,onSubmit}) {
         
         onSubmit({
             id:getRandomInt(),
-            task:data.get("task")
+            task:data.get("task"),
+            linethrough: false,
+            completed: false
         });
     }
 

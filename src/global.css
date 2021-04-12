@@ -1,3 +1,7 @@
 .error {
     color: red;
 }
+
+.line-through {
+    text-decoration: line-through;
+}
